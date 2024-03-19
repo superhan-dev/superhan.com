@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 # superhan-portfolio
-=======
-# Convention
 
-## CSS
+## Convention
+
+### CSS
 
 use BEM convention.
->>>>>>> 05b643d (first commit)
