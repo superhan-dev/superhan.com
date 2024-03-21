@@ -156,6 +156,10 @@ p {
   text-wrap: pretty;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @media (prefers-recude-motion: no-preference) {
   :has(:taeget) {
     scroll-behavior: smooth;

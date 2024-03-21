@@ -59,7 +59,62 @@ main {
   padding: 3rem;
 }
 
-.section h2 {
-  font-size: 1.5rem;
+.section__title {
+  padding-bottom: 1.5rem;
+  font-size: 2rem;
   font-weight: 500;
+}
+
+.section__container--about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section__container--about img {
+  width: 500px;
+}
+
+.section__container--about h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.section__container--about h3 {
+  font-size: 1.25rem;
+}
+
+.about__content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.skills__container {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem 0;
+}
+
+.skills__container .fa-brands {
+  --fa-animation-duration: 5s;
+}
+
+.fa-html5 {
+  color: red;
+}
+
+.fa-css3-alt {
+  color: blue;
+}
+
+.fa-node {
+  color: green;
+}
+
+.fa-react {
+  color: rgb(8 126 164);
 }
