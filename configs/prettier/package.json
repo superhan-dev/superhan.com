@@ -1,0 +1,12 @@
+{
+  "name": "@configs/prettier",
+  "main": "index.js",
+  "version": "1.0.0",
+  "type": "module",
+  "peerDependencies": {
+    "prettier": ">= 3"
+  },
+  "devDependencies": {
+    "prettier-plugin-tailwindcss": "^0.6.6"
+  }
+}

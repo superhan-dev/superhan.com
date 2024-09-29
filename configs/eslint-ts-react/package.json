@@ -1,0 +1,19 @@
+{
+  "name": "@configs/eslint-ts-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.52.0",
+    "eslint": "link:@tanstack/config/eslint",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9"
+  }
+}

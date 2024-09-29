@@ -1,0 +1,21 @@
+{
+  "name": "@configs/eslint-ts",
+  "main": "index.js",
+  "version": "1.0.0",
+  "type": "module",
+  "peerDependencies": {
+    "eslint": ">= 9",
+    "typescript": ">= 5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.2.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-log-filenames": "^1.0.6",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.0.1"
+  }
+}
