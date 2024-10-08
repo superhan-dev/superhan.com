@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HashPassword } from 'src/domain/account/model/hash-password';
+import { HashPassword } from '@/domain/account/model/hash-password';
 import { DataSource, Repository } from 'typeorm';
 import { HashPasswordEntity } from '../entity/hash-password.entity';
 import { HashPasswordMapper } from '../mapper/hash-password.mapper';

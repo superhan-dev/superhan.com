@@ -1,4 +1,4 @@
-import { RoleEnum } from 'src/common/enum/role.enum';
+import { RoleEnum } from '@/common/enum/role.enum';
 
 export class Role {
   roleId: number;

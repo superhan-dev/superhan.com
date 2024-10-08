@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ProjectDomainService } from 'src/domain/project/project.domain.service';
-import { CreateProjectRequestDto } from 'src/presentation/dto/project/request/create-project.request.dto';
+import { ProjectDomainService } from '@/domain/project/project.domain.service';
+import { CreateProjectRequestDto } from '@/presentation/dto/project/request/create-project.request.dto';
 import { CRUDInterface } from './crud.interface';
 
 @Injectable()

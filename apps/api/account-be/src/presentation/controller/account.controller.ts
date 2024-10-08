@@ -1,6 +1,6 @@
+import { AccountApplicationService } from '@/application/account/account.application.service';
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AccountApplicationService } from 'src/application/account/account.application.service';
 import { RegisterAccountRequestDto } from '../dto/account/request/register-account.request.dto';
 
 @Controller('/api/account')

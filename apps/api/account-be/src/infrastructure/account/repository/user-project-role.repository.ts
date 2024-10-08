@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CustomException } from 'src/common/exception/custom.exception';
-import { ErrorEnum } from 'src/common/exception/data/error.enum';
-import { UserProjectRole } from 'src/domain/account/model/user-project-role';
+import { CustomException } from '@/common/exception/custom.exception';
+import { ErrorEnum } from '@/common/exception/data/error.enum';
+import { UserProjectRole } from '@/domain/account/model/user-project-role';
 import { Repository } from 'typeorm';
 import { UserProjectRoleEntity } from '../entity/user-project-role.entity';
 

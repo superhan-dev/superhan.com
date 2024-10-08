@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { DomainTypeEnum } from 'src/common/enum/crud.enum';
-import { CustomException } from 'src/common/exception/custom.exception';
-import { ErrorEnum } from 'src/common/exception/data/error.enum';
+import { DomainTypeEnum } from '@/common/enum/crud.enum';
+import { CustomException } from '@/common/exception/custom.exception';
+import { ErrorEnum } from '@/common/exception/data/error.enum';
 import { ProjectCRUDFacade } from './project.crud.facade';
 
 @Injectable()

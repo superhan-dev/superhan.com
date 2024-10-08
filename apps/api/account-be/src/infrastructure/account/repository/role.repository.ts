@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Role } from 'src/domain/account/model/role';
+import { Role } from '@/domain/account/model/role';
 import { DataSource, Repository } from 'typeorm';
 import { RoleEntity } from '../entity/Role.entity';
 import { RoleMapper } from '../mapper/role.mapper';

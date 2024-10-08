@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CustomException } from 'src/common/exception/custom.exception';
-import { ErrorEnum } from 'src/common/exception/data/error.enum';
-import { AccountDomainService } from 'src/domain/account/ account.domain.service';
-import { Account } from 'src/domain/account/model/account';
+import { CustomException } from '@/common/exception/custom.exception';
+import { ErrorEnum } from '@/common/exception/data/error.enum';
+import { AccountDomainService } from '@/domain/account/ account.domain.service';
+import { Account } from '@/domain/account/model/account';
 import { AccountDto } from '../dto/account.dto';
 import { AccountInterface } from './account.interface';
 

@@ -1,8 +1,8 @@
+import { AppController } from '@/app.controller';
+import { AppService } from '@/app.service';
+import { TypeOrmDbConfig } from '@/common/config/typeorm.db.config';
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from 'src/app.controller';
-import { AppService } from 'src/app.service';
-import { TypeOrmDbConfig } from 'src/common/config/typeorm.db.config';
 import { AccountModule } from './account.module';
 import { LoggerModule } from './logger.module';
 import { ProjectModule } from './project.module';

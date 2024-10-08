@@ -1,4 +1,4 @@
-import { User } from 'src/domain/account/model/user';
+import { User } from '@/domain/account/model/user';
 import { UserEntity } from '../entity/user.entity';
 
 export class UserMapper {

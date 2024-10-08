@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
-import { AccountDto } from 'src/application/dto/account.dto';
+import { AccountDto } from '@/application/dto/account.dto';
 
 export class LoginRequestDto extends AccountDto {
   @ApiProperty({ name: '사용자 ID' })

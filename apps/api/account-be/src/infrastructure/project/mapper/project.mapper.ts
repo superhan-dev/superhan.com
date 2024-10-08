@@ -1,4 +1,4 @@
-import { Project } from 'src/domain/project/model/project';
+import { Project } from '@/domain/project/model/project';
 import { ProjectEntity } from '../entity/project.entity';
 
 export class ProjectMapper {

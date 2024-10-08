@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { HashPasswordRepository } from 'src/infrastructure/account/repository/hash-password.repository';
+import { HashPasswordRepository } from '@/infrastructure/account/repository/hash-password.repository';
 
 @Injectable()
 export class HashPasswordDomainService {

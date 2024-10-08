@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CRUDFacadeFactory } from 'src/application/crud/crud.facade.factory';
-import { DomainTypeEnum } from 'src/common/enum/crud.enum';
-import { Project } from 'src/domain/project/model/project';
+import { CRUDFacadeFactory } from '@/application/crud/crud.facade.factory';
+import { DomainTypeEnum } from '@/common/enum/crud.enum';
+import { Project } from '@/domain/project/model/project';
 import { CreateProjectRequestDto } from '../dto/project/request/create-project.request.dto';
 
 @Controller('api/project')
