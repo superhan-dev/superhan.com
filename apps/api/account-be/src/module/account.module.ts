@@ -1,43 +1,44 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountApplicationService } from '@/application/account/account.application.service';
-import { LocalStrategy } from '@/common/auth/local.strategy';
-import { AccountDomainService } from '@/domain/account/ account.domain.service';
-import { HashPasswordDomainService } from '@/domain/account/hash-password.domain.service';
+import { AccountDomainService } from '@/domain/account/service/account.domain.service';
+import { HashPasswordDomainService } from '@/domain/account/service/hash-password.domain.service';
 import { HashPasswordEntity } from '@/infrastructure/account/entity/hash-password.entity';
-import { RoleEntity } from '@/infrastructure/account/entity/role.entity';
-import { UserProjectRoleEntity } from '@/infrastructure/account/entity/user-project-role.entity';
-import { UserEntity } from '@/infrastructure/account/entity/user.entity';
+import { RoleEntity } from '@/infrastructure/role/entity/role.entity';
+import { AccountRoleEntity } from '@/infrastructure/account/entity/account-role.entity';
+import { AccountEntity } from '@/infrastructure/account/entity/account.entity';
 import { HashPasswordRepository } from '@/infrastructure/account/repository/hash-password.repository';
-import { RoleRepository } from '@/infrastructure/account/repository/role.repository';
-import { UserProjectRoleRepository } from '@/infrastructure/account/repository/user-project-role.repository';
+import { RoleRepository } from '@/infrastructure/role/repository/role.repository';
+import { UserRoleRepository } from '@/infrastructure/account/repository/user-role.repository';
 import { UserRepository } from '@/infrastructure/account/repository/user.repository';
 import { AccountController } from '@/presentation/controller/account.controller';
 import { ProjectModule } from './project.module';
+import { RoleModule } from './role.module';
+import { AuthModule } from './auth.module';
 
 @Module({
   imports: [
-    forwardRef(() => PassportModule),
     TypeOrmModule.forFeature([
       HashPasswordEntity,
       RoleEntity,
-      UserProjectRoleEntity,
-      UserEntity,
+      AccountRoleEntity,
+      AccountEntity,
     ]),
     forwardRef(() => ProjectModule),
+    forwardRef(() => RoleModule),
+    forwardRef(() => AuthModule),
   ],
   controllers: [AccountController],
   providers: [
     AccountApplicationService,
     AccountDomainService,
     HashPasswordDomainService,
-    LocalStrategy,
     HashPasswordRepository,
     RoleRepository,
-    UserProjectRoleRepository,
+    UserRoleRepository,
     UserRepository,
     // WithdrawalUserRepository,
   ],
+  exports: [AccountDomainService],
 })
 export class AccountModule {}

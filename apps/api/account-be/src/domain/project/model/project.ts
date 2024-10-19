@@ -7,10 +7,10 @@ export class Project {
 
   @IsNotEmpty({ message: 'project name은 필수값 입니다.' })
   @IsString()
-  name: string;
+  projectName: string;
 
-  constructor({ id, name }: Project) {
+  constructor({ id, projectName }: Project) {
     this.id = id;
-    this.name = name;
+    this.projectName = projectName;
   }
 }

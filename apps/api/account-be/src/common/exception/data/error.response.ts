@@ -19,6 +19,15 @@ export const CUSTOM_RESPONSE: Record<ErrorEnum, ErrorResponse> = {
     message: '프로젝트 생성 실패',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
   },
+  [ErrorEnum.PROJECT_UPDATE_FAILED]: {
+    message: '프로젝트 수정 실패',
+    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+  },
+  [ErrorEnum.PROJECT_DELETE_FAILED]: {
+    message: '프로젝트 삭제 실패',
+    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+  },
+
   [ErrorEnum.PROJECT_NOT_FOUND]: {
     message: '프로젝트 조회 실패',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -49,14 +58,21 @@ export const CUSTOM_RESPONSE: Record<ErrorEnum, ErrorResponse> = {
   },
 
   [ErrorEnum.ROLE_CREATE_FAILED]: {
-    message: '사용자 Role 등록 실패',
+    message: '사용자 권한 등록 실패',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
   },
   [ErrorEnum.ROLE_NOT_FOUND]: {
-    message: '등록되지 않은 사용자 Role',
+    message: '등록되지 않은 사용자 권한',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
   },
-
+  [ErrorEnum.ROLE_UPDATE_FAILED]: {
+    message: '사용자 권한 수정 실패',
+    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+  },
+  [ErrorEnum.ROLE_DELETE_FAILED]: {
+    message: '사용자 권한 삭제 실패',
+    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+  },
   [ErrorEnum.INSERT_DATA_FAILED]: {
     message: 'DATA Insert 실패',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -71,6 +87,10 @@ export const CUSTOM_RESPONSE: Record<ErrorEnum, ErrorResponse> = {
   },
   [ErrorEnum.INVALIDATED_ACCOUNT]: {
     message: '유효하지 않은 계정',
+    statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+  },
+  [ErrorEnum.USER_PROJECT_ROLE_NOT_FOUND]: {
+    message: '유효하지 않은 사용자',
     statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
   },
 };

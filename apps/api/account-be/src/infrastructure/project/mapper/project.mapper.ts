@@ -5,7 +5,7 @@ export class ProjectMapper {
   static toDomain(entity: ProjectEntity): Project {
     return new Project({
       id: entity.id,
-      name: entity.name,
+      projectName: entity.projectName,
     });
   }
 }

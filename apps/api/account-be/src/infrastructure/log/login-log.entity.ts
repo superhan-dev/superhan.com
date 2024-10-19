@@ -5,8 +5,8 @@ export class LoginLog {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'user_id' })
-  userId: number;
+  @Column({ name: 'account_id' })
+  accountId: number;
 
   @Column({ name: 'project_id' })
   projectId: number;

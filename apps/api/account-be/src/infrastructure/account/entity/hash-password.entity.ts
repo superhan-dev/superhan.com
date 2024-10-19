@@ -1,13 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('hash_password')
 export class HashPasswordEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  // @ManyToOne(() => User, (user) => user.hashPasswords)
-  // @JoinColumn({ name: 'user_id' })
-  // user: User;
 
   @Column({ name: 'password', type: 'varchar', length: 128 })
   password: string;
@@ -15,13 +17,18 @@ export class HashPasswordEntity {
   @Column({ name: 'salt', type: 'varchar', length: 32 })
   salt: string;
 
-  @Column({ name: 'user_id', type: 'integer' })
-  userId: number;
+  @Column({ name: 'account_id', type: 'integer' })
+  accountId: number;
 
-  @Column({
+  @CreateDateColumn({
+    name: 'create_date',
+    type: 'timestamp',
+  })
+  createDate: Date;
+
+  @UpdateDateColumn({
     name: 'update_date',
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   updateDate: Date;
 }

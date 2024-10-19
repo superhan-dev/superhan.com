@@ -11,5 +11,5 @@ export class AccountDto {
   projectName: string;
 
   @IsString()
-  roleName?: string;
+  roleName: string;
 }

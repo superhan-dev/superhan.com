@@ -1,6 +1,6 @@
 import { HttpException } from '@nestjs/common';
-import { ErrorEnum } from './data/error.enum';
 import { CUSTOM_RESPONSE } from './data/error.response';
+import { ErrorEnum } from './data/error.enum';
 
 export class CustomException extends HttpException {
   constructor(errorCode: ErrorEnum) {

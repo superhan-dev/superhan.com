@@ -1,5 +1,5 @@
 export class HashPassword {
-  userId: number;
+  accountId: number;
   password: string;
   salt: string;
 

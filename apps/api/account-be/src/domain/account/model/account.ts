@@ -1,18 +1,18 @@
 import { RoleEnum } from '@/common/enum/role.enum';
-import { User } from './user';
 
-export class Account extends User {
-  project: string;
+export class Account {
+  accountId: number;
+  username: string;
+
+  projectName?: string;
   password?: string;
-  role?: RoleEnum;
+  roleName?: RoleEnum;
 
-  constructor(props: Partial<Account>) {
-    super({
-      userId: props.userId,
-      username: props.username,
-    });
-    this.project = props.project;
+  constructor(props: Account) {
+    this.accountId = props.accountId!;
+    this.username = props.username!;
+    this.projectName = props.projectName!;
     this.password = props.password;
-    this.role = props.role;
+    this.roleName = props.roleName;
   }
 }

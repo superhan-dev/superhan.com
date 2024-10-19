@@ -1,14 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './module/app.module';
+import { GlobalExceptionFilter } from './common/filter/global-exception.filter';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import * as winstonDaily from 'winston-daily-rotate-file';
-
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { appendTimestamp, dailyOptions } from '@packages/winston-logger';
-import { LoggerContextEnum } from './common/enum/logger.constant';
-import { GlobalExceptionFilter } from './common/filter/global-exception.filter';
-import { AppModule } from './module/app.module';
+import { appendTimestamp, dailyOptions } from '@configs/winston-logger';
+import { Logger } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
+import { setupSwagger } from './common/helpers/swagger.helper';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -36,24 +35,16 @@ async function bootstrap() {
   });
 
   app.enableCors();
+  app.use(cookieParser());
   const logger = app.get(Logger);
+  // globalExceptionFilter 둥록
   app.useGlobalFilters(new GlobalExceptionFilter(logger));
-  // swagger 설정
-  const config = new DocumentBuilder()
-    .setTitle('Samsung AI Life API Documentation')
-    .setDescription('The API description')
-    .setVersion('1.0.0')
-    .addTag('api')
-    .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('doc', app, document);
-
-  app.useGlobalPipes(new ValidationPipe());
-
-  const port = 3000;
+  setupSwagger(app);
+  const port = 8080;
   await app.listen(port, () => {
-    logger.log('server running with port ' + port, LoggerContextEnum.BOOTSTRAP);
+    logger.log('server running with port ' + port, 'Bootstrap');
   });
 }
+
 bootstrap();

@@ -1,34 +1,14 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## Document
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+elypecs solution 계정 관리 서버 프로젝트 별 계정을 생성하고 관리 할 수 있으며
+로그인 시 API를 호출하여 인가된 계정인지 확인할 수 있다.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+자세한 기능은 swagger를 통해 확인할 수 있도록 설계한다.
 
 ## Project setup
 
 ```bash
+$ pnpm --filter @configs/winston-logger build
 $ pnpm install
 ```
 
@@ -36,13 +16,10 @@ $ pnpm install
 
 ```bash
 # development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
+$ pnpm --filter es-account-be start:dev
 
 # production mode
-$ pnpm run start:prod
+$ pnpm --filter es-account-be start:prod
 ```
 
 ## Run tests
@@ -58,28 +35,56 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
-## Resources
+## flow
 
-Check out a few resources that may come in handy when working with NestJS:
+### 로그인
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+1. 로그인 정보 요청
+2. 사용자 정보 인증 ->
+3. access token, refresh token 발급 ->
+4. 발급된 refresh token 저장 ->
+5. 저장 후 http only cookie를 사용하여 access token 과 refresh token을
+   사용자에게 전달
 
-## Support
+### 사용자 요청
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. access token 유효성 검사 1.1. 토큰 유효시 -> 요청 사항 처리 후 응답 1.2. 토큰
+   만료시 -> 1.2.1. refresh token 유효성 검사 1.2.1.1. refresh token 유효시 ->
+   access token을 재발급 하여 요청 사항 처리 후 반환 1.2.1.2. refresh token
+   유효하지 않을 시 -> DB에 저장된 refresh token을 파기 하고 로그아웃 처리
+   되도록 하여 재 로그인 유도
 
-## Stay in touch
+## Login
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. 로그인시 사용되는 사용자 정보
 
-## License
+- LoginRequestDto
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+  - username
+  - password
+  - projectName
+  - roleName
+
+- Refresh Token secret과 access token secret은 환경변수로 설정한다.
+- REFRESH_JWT_SECRET 을 사용하여
+
+- 1.1. 사용자 정보를 받아 사용자를 검증한다.
+- 1.1.1. APP_GUARD 를 설정하여 모든 API에서 JWT 인증을 실행하도록 한다.
+- 1.1.2.
+
+- 1.2. 사용자 검증에 성공하면 accountId 와 accessToken, refreshToken을 반환한다.
+- 1.1.2.
+
+2.  AuthController AuthGuard를 상황별로 다른 Guard를 사용한다.
+
+- 2.1. LocalAuthGuard
+  - 초기 로그인과 refresh token만료시 사용한다.
+- 2.2. RefreshJwtAuthGuard
+  - accessToken이 만료되면 사용하여 accessToken을 재발급시 사용한다.
+- 2.3. JwtAuthGuard
+  - accessToken을 사용하여 유효하다면 요청을 처리할 수 있는 곳에 사용된다.
+    - 로그아웃 기능
+      - 로그아웃을 할 수 있는 유효한 토큰을 가지고있는 사용자만 로그아웃을 할 수
+        있다.
+
+3.

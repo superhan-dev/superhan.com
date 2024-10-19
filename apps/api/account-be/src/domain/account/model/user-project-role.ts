@@ -1,5 +1,4 @@
-export class UserProjectRole {
+export class UserRole {
   roleId: number;
-  projectId: number;
-  userId: number;
+  accountId: number;
 }

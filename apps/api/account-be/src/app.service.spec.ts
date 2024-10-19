@@ -16,7 +16,7 @@ describe('AppController', () => {
     service = module.get(AppService);
   });
 
-  describe('hello', () => {
+  describe('hello service', () => {
     it('return a default message', () => {
       jest.spyOn(service, 'getHello').mockReturnValue('Hello Superhan');
       expect(controller.getHello()).toEqual('Hello Superhan');

@@ -1,5 +1,5 @@
-import { ProjectCRUDFacade } from '@/application/crud/project.crud.facade';
-import { ProjectDomainService } from '@/domain/project/project.domain.service';
+import { ProjectCrudFacade } from '@/application/crud/project.crud.facade';
+import { ProjectDomainService } from '@/domain/project/service/project.domain.service';
 import { ProjectEntity } from '@/infrastructure/project/entity/project.entity';
 import { ProjectRepository } from '@/infrastructure/project/repository/project.repository';
 import { ProjectController } from '@/presentation/controller/project.controller';
@@ -13,7 +13,7 @@ import { CrudFacadeModule } from './crud.facade.module';
     forwardRef(() => CrudFacadeModule),
   ],
   controllers: [ProjectController],
-  providers: [ProjectDomainService, ProjectRepository, ProjectCRUDFacade],
-  exports: [ProjectCRUDFacade, ProjectDomainService, ProjectRepository],
+  providers: [ProjectDomainService, ProjectRepository, ProjectCrudFacade],
+  exports: [ProjectCrudFacade, ProjectDomainService, ProjectRepository],
 })
 export class ProjectModule {}

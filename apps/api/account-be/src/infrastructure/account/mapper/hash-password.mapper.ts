@@ -4,7 +4,7 @@ import { HashPasswordEntity } from '../entity/hash-password.entity';
 export class HashPasswordMapper {
   static toDomain(entity: HashPasswordEntity) {
     return new HashPassword({
-      userId: entity.userId,
+      accountId: entity.accountId,
       password: entity.password,
       salt: entity.salt,
     });
