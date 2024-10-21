@@ -1,5 +1,5 @@
 {
-  "name": "es-account-be",
+  "name": "account-be",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -18,7 +18,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@configs/winston-logger": "workspace:*",
+    "@packages/winston-logger": "workspace:*",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.0.0",

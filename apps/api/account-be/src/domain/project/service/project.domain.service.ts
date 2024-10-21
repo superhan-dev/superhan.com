@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { ProjectRepository } from '@/infrastructure/project/repository/project.repository';
-import { CreateProjectRequestDto } from '@/presentation/dto/project/request/create-project.request.dto';
-import { Project } from '../model/project';
 import { CustomException } from '@/common/exception/custom.exception';
 import { ErrorEnum } from '@/common/exception/data/error.enum';
+import { ProjectRepository } from '@/infrastructure/project/repository/project.repository';
+import { CreateProjectRequestDto } from '@/presentation/dto/project/request/create-project.request.dto';
 import { UpdateProjectRequestDto } from '@/presentation/dto/project/request/update-project.request.dto';
+import { Injectable } from '@nestjs/common';
+import { Project } from '../model/project';
 
 @Injectable()
 export class ProjectDomainService {
@@ -13,6 +13,14 @@ export class ProjectDomainService {
     const result: Project | undefined =
       await this.projectRepository.create(dto);
     if (!result) throw new CustomException(ErrorEnum.PROJECT_CREATE_FAILED);
+
+    return result;
+  }
+
+  async getList(): Promise<Project[]> {
+    const result: Project[] | undefined =
+      await this.projectRepository.findAll();
+    if (!result) throw new CustomException(ErrorEnum.PROJECT_NOT_FOUND);
 
     return result;
   }

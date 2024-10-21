@@ -1,30 +1,35 @@
-import { Public } from '@/common/decorators/public.decorator';
+import { AuthApplicationService } from '@/application/auth/auth.application.service';
 import { LocalAuthGuard } from '@/common/auth/guards/local-auth.guard';
 import { RefreshJwtAuthGuard } from '@/common/auth/guards/refresh-jwt-auth.guard';
 import { AuthResponseInterCeptor } from '@/common/auth/interceptors/auth.response.interceptor';
+import { CurrentUser } from '@/common/auth/types/current-user';
+import { Public } from '@/common/decorators/public.decorator';
 import {
+  Body,
   Controller,
-  Post,
-  Request,
-  UseGuards,
   HttpCode,
   HttpStatus,
-  Req,
-  UseInterceptors,
-  Res,
-  Body,
   Logger,
+  Post,
+  Req,
+  Request,
+  Res,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { LoginResponseDto } from '../dto/account/response/login.response.dto';
-import { AccountSwaggerData } from '../data/account.swagger.data';
 import { Response } from 'express';
+import { AccountSwaggerData } from '../data/account.swagger.data';
+import { LoginResponseDto } from '../dto/account/response/login.response.dto';
 import { LoginRequestDto } from '../dto/auth/request/login.request.dto';
 
 @ApiTags('계정 인증')
 @Controller('/api/auth')
 export class AuthController {
-  constructor(private readonly logger: Logger) {}
+  constructor(
+    private readonly logger: Logger,
+    private readonly authApplicationService: AuthApplicationService
+  ) {}
   @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
@@ -38,7 +43,6 @@ export class AuthController {
     example: AccountSwaggerData.loginResponse,
   })
   async login(@Request() req: any, @Body() dto: LoginRequestDto) {
-    this.logger.log('dto:', dto, 'AuthController Login');
     return req.user;
   }
 
@@ -47,6 +51,11 @@ export class AuthController {
   @Post('/refresh')
   async refreshToken(@Req() req: any) {
     return req.user;
+  }
+
+  @Post('/validate-token')
+  async validateToken(@Body('token') token: string): Promise<CurrentUser> {
+    return await this.authApplicationService.validateAccessToken(token);
   }
 
   @Post('/sign-out')

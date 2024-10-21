@@ -1,24 +1,27 @@
-import refreshJwtConfig from '@/common/config/auth/refresh-jwt.auth.config';
 import { AuthJwtPayload } from '@/common/auth/types/auth-jwt-payload';
+import { CurrentUser } from '@/common/auth/types/current-user';
+import jwtAuthConfig from '@/common/config/auth/jwt.auth.config';
+import refreshJwtAuthConfig from '@/common/config/auth/refresh-jwt.auth.config';
 import { CustomException } from '@/common/exception/custom.exception';
 import { ErrorEnum } from '@/common/exception/data/error.enum';
+import { Account } from '@/domain/account/model/account';
 import { AccountDomainService } from '@/domain/account/service/account.domain.service';
+import { AuthDomainService } from '@/domain/auth/auth.domain.service';
+import { LoginResponseDto } from '@/presentation/dto/account/response/login.response.dto';
 import { LoginRequestDto } from '@/presentation/dto/auth/request/login.request.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { TokenDto } from '../dto/token.dto';
-import { LoginResponseDto } from '@/presentation/dto/account/response/login.response.dto';
-import { AuthDomainService } from '@/domain/auth/auth.domain.service';
-import { Account } from '@/domain/account/model/account';
-import { CurrentUser } from '@/common/auth/types/current-user';
 
 @Injectable()
 export class AuthApplicationService {
   constructor(
     private readonly jwtService: JwtService,
-    @Inject(refreshJwtConfig.KEY)
-    private refreshTokenConfig: ConfigType<typeof refreshJwtConfig>,
+    @Inject(jwtAuthConfig.KEY)
+    private jwtTokenConfig: ConfigType<typeof jwtAuthConfig>,
+    @Inject(refreshJwtAuthConfig.KEY)
+    private refreshTokenConfig: ConfigType<typeof refreshJwtAuthConfig>,
     private readonly accountDomainService: AccountDomainService,
     private readonly authDomainService: AuthDomainService
   ) {}
@@ -68,6 +71,24 @@ export class AuthApplicationService {
     };
   }
 
+  async validateAccessToken(token: string): Promise<CurrentUser> {
+    const validatedToken = await this.jwtService.verifyAsync(token, {
+      secret: this.jwtTokenConfig.secret,
+    });
+
+    const account: Account | undefined =
+      await this.accountDomainService.findOneByAccountId(validatedToken.sub);
+    if (!account) {
+      throw new CustomException(ErrorEnum.USER_NOT_FOUND);
+    }
+    const currentUser: CurrentUser = {
+      accountId: account.accountId,
+      projectName: account.projectName!,
+      roleName: account.roleName!,
+    };
+    return currentUser;
+  }
+
   async validateJwtToken(accountId: number): Promise<CurrentUser> {
     const account: Account | undefined =
       await this.accountDomainService.findOneByAccountId(accountId);
@@ -76,6 +97,7 @@ export class AuthApplicationService {
     }
     const currentUser: CurrentUser = {
       accountId: account.accountId,
+      projectName: account.projectName!,
       roleName: account.roleName!,
     };
     return currentUser;

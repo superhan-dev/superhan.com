@@ -2,12 +2,12 @@ import { CustomException } from '@/common/exception/custom.exception';
 import { ErrorEnum } from '@/common/exception/data/error.enum';
 import { Project } from '@/domain/project/model/project';
 import { CreateProjectRequestDto } from '@/presentation/dto/project/request/create-project.request.dto';
+import { UpdateProjectRequestDto } from '@/presentation/dto/project/request/update-project.request.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository, UpdateResult } from 'typeorm';
 import { ProjectEntity } from '../entity/project.entity';
 import { ProjectMapper } from '../mapper/project.mapper';
-import { UpdateProjectRequestDto } from '@/presentation/dto/project/request/update-project.request.dto';
 
 @Injectable()
 export class ProjectRepository {
@@ -24,6 +24,13 @@ export class ProjectRepository {
     });
 
     return result ? ProjectMapper.toDomain(result) : undefined;
+  }
+
+  async findAll() // TODO: pagination 추가할 것
+  : Promise<Project[] | undefined> {
+    const result: ProjectEntity[] = await this.repository.find();
+
+    return result ? ProjectMapper.toDomainList(result) : undefined;
   }
 
   async update(dto: UpdateProjectRequestDto): Promise<boolean> {

@@ -17,4 +17,11 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  // @Roles(RoleEnum.USER)
+  // @UseGuards(RolesGuard)
+  // @Get('test')
+  // getTest(): string {
+  //   return this.appService.getHello();
+  // }
 }

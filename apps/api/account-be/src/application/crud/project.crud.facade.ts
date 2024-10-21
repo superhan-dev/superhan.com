@@ -16,6 +16,10 @@ export class ProjectCrudFacade implements CrudInterface {
     return await this.projectService.create(dto);
   }
 
+  async read() {
+    return await this.projectService.getList();
+  }
+
   async update(dto: CrudUpdateDto): Promise<boolean> {
     return await this.projectService.update(dto);
   }

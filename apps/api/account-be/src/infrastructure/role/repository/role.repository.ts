@@ -30,6 +30,13 @@ export class RoleRepository {
     return result ? RoleMapper.toDomain(result) : undefined;
   }
 
+  async findAll() // TODO: pagination 추가할 것
+  : Promise<Role[] | undefined> {
+    const result: RoleEntity[] = await this.repository.find();
+
+    return result ? RoleMapper.toDomainList(result) : undefined;
+  }
+
   async update(dto: UpdateRoleRequestDto): Promise<boolean> {
     const roleEnumKey: keyof typeof RoleEnum =
       dto.roleName.toUpperCase() as keyof typeof RoleEnum;

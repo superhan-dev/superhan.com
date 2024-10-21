@@ -18,6 +18,13 @@ export class RoleDomainService {
     return result;
   }
 
+  async getList(): Promise<Role[]> {
+    const result: Role[] | undefined = await this.roleRepository.findAll();
+    if (!result) throw new CustomException(ErrorEnum.ROLE_NOT_FOUND);
+
+    return result;
+  }
+
   async update(dto: UpdateRoleRequestDto): Promise<boolean> {
     const result: boolean = await this.roleRepository.update(dto);
     if (!result) new CustomException(ErrorEnum.ROLE_UPDATE_FAILED);

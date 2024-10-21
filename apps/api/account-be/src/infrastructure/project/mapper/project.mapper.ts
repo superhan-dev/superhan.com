@@ -8,4 +8,8 @@ export class ProjectMapper {
       projectName: entity.projectName,
     });
   }
+
+  static toDomainList(entityList: ProjectEntity[]): Project[] {
+    return entityList.map((entity: ProjectEntity) => new Project(entity));
+  }
 }

@@ -1,11 +1,19 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
 import { CrudFacadeFactory } from '@/application/crud/crud.facade.factory';
 import { DomainTypeEnum } from '@/common/enum/crud.enum';
 import { Project } from '@/domain/project/model/project';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateProjectRequestDto } from '../dto/project/request/create-project.request.dto';
 import { UpdateProjectRequestDto } from '../dto/project/request/update-project.request.dto';
 
-@Controller('api/project')
+@Controller('/api/project')
 export class ProjectController {
   constructor(private readonly crudFacadeFactory: CrudFacadeFactory) {}
 
@@ -14,6 +22,13 @@ export class ProjectController {
     return await this.crudFacadeFactory
       .getCrudFacade(DomainTypeEnum.PROJECT)
       .create(dto);
+  }
+
+  @Get('/list')
+  async getList(): Promise<Project[]> {
+    return await this.crudFacadeFactory
+      .getCrudFacade(DomainTypeEnum.PROJECT)
+      .read();
   }
 
   @Put('/update')

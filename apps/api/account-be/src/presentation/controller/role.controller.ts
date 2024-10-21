@@ -1,11 +1,19 @@
-import { Body, Controller, Delete, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CrudFacadeFactory } from '@/application/crud/crud.facade.factory';
 import { DomainTypeEnum } from '@/common/enum/crud.enum';
 import { CreateRoleRequestDto } from '../dto/role/request/create-role.request.dto';
 import { Role } from '@/domain/role/model/role';
 import { UpdateRoleRequestDto } from '../dto/role/request/update-role.request.dto';
 
-@Controller('api/role')
+@Controller('/api/role')
 export class RoleController {
   constructor(private readonly crudFacadeFactory: CrudFacadeFactory) {}
 
@@ -14,6 +22,13 @@ export class RoleController {
     return await this.crudFacadeFactory
       .getCrudFacade(DomainTypeEnum.ROLE)
       .create(dto);
+  }
+
+  @Get('/list')
+  async getList(): Promise<Role[]> {
+    return await this.crudFacadeFactory
+      .getCrudFacade(DomainTypeEnum.ROLE)
+      .read();
   }
 
   @Put('/update')

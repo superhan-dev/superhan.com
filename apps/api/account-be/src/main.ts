@@ -1,13 +1,13 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './module/app.module';
-import { GlobalExceptionFilter } from './common/filter/global-exception.filter';
+import { appendTimestamp, dailyOptions } from '@packages/winston-logger';
+import * as cookieParser from 'cookie-parser';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import * as winstonDaily from 'winston-daily-rotate-file';
-import { appendTimestamp, dailyOptions } from '@configs/winston-logger';
-import { Logger } from '@nestjs/common';
-import * as cookieParser from 'cookie-parser';
+import { GlobalExceptionFilter } from './common/filter/global-exception.filter';
 import { setupSwagger } from './common/helpers/swagger.helper';
+import { AppModule } from './module/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -41,7 +41,7 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionFilter(logger));
 
   setupSwagger(app);
-  const port = 8080;
+  const port: number = Number(`${process.env.PORT}`);
   await app.listen(port, () => {
     logger.log('server running with port ' + port, 'Bootstrap');
   });
